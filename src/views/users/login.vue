@@ -59,13 +59,14 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("Login/login", {
-        username: this.username,
-        password: this.password,
-      });
-      // .then(() => {
-      //   this.$router.push({ name: "Home"});
-      // });
+      this.$store
+        .dispatch("Login/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: "Home" });
+        });
     },
   },
 };
