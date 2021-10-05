@@ -16,7 +16,6 @@ http.interceptors.request.use((request) => {
   const scopedRequest = request;
   const token = store.getters["Login/token"];
 
-  console.log("There token", token);
   if (token) {
     scopedRequest.headers.Authorization = token;
     console.log(scopedRequest.headers.Authorization);
