@@ -18,7 +18,6 @@ http.interceptors.request.use((request) => {
 
   if (token) {
     scopedRequest.headers.Authorization = token;
-    console.log(scopedRequest.headers.Authorization);
     console.log(scopedRequest.headers);
   }
   console.log("request: ", scopedRequest);
