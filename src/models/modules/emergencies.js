@@ -7,7 +7,9 @@ export default class Emergencies extends Model {
 
   static MAPPING = {
     id: { type: Model.TYPES.Primary, default: undefined },
-    name: { type: Model.TYPES.String, default: "" },
+    date: { type: Model.TYPES.Date, default: "" },
+    keyword: { type: Model.TYPES.String, default: "" },
+    e_number: { type: Model.TYPES.String, default: "" },
   };
 
   constructor(obj) {

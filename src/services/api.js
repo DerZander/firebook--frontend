@@ -2,7 +2,10 @@ import axios from "axios";
 import store from "../store/index";
 
 const http = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE,
+  baseURL: process.env.VUE_APP_API_BASE || "http://localhost:3000/api/",
+  headers: {
+    "Content-type": "application/json",
+  },
   timeout: 30000,
   validateStatus(status) {
     return status >= 200 && status < 300 && status !== 204;
@@ -11,18 +14,25 @@ const http = axios.create({
 
 http.interceptors.request.use((request) => {
   const scopedRequest = request;
-  const token = store.getters["Login/token"]["Login/token"];
+  const token = store.getters["Login/token"];
 
-  if (token) scopedRequest.headers.Authorization = token;
+  console.log("There token", token);
+  if (token) {
+    scopedRequest.headers.Authorization = token;
+    console.log(scopedRequest.headers.Authorization);
+    console.log(scopedRequest.headers);
+  }
+  console.log("request: ", scopedRequest);
   return scopedRequest;
 });
 
 http.interceptors.response.use(
   (resp) => resp,
   (err) => {
-    console.log(err);
+    console.log();
     switch (err.response.status) {
       case 401:
+        console.log("case 401");
         store.dispatch("Login/logout").then(() => {
           window.app.$route.push("/login");
         });

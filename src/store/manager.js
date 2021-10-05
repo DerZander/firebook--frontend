@@ -65,6 +65,7 @@ export class ModelManager {
         api
           .get(this.Clazz.ENDPOINT_PATH)
           .then((resp) => {
+            console.log("RESP: ", resp);
             let newItem = false;
             resp.data.results.forEach((newInstance) => {
               if (

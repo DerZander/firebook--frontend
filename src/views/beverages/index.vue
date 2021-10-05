@@ -1,7 +1,7 @@
 <template>
   <div>
-    Einsätze
-    <div v-for="item in emergencies" :key="item.id">
+    Beverages
+    <div v-for="item in beverages" :key="item.id">
       <a>{{ item }}</a>
     </div>
   </div>
@@ -12,13 +12,18 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "index",
+  data() {
+    return {
+      items: [],
+    };
+  },
   computed: {
     ...mapGetters({
-      emergencies: "Emergencies/all",
+      beverages: "Beverages/all",
     }),
   },
   mounted() {
-    this.$store.dispatch("Emergencies/all");
+    this.$store.dispatch("Beverages/all");
   },
 };
 </script>
