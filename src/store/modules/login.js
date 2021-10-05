@@ -27,14 +27,12 @@ const actions = {
           }
         })
         .catch((err) => {
-          console.log("logout login", err);
           commit("logout");
           reject(err);
         });
     });
   },
   logout({ commit }) {
-    console.log("Frontend action logout");
     return new Promise((resolve) => {
       commit("logout");
       resolve();
@@ -44,12 +42,10 @@ const actions = {
 
 const mutations = {
   auth_success(state, token) {
-    console.log("HIER!");
     state.token = token;
     Cookies.set(COOKIE_NAME, token);
   },
   logout(state) {
-    console.log("Frontend mut Logout");
     state.token = "";
     Cookies.remove(COOKIE_NAME);
   },

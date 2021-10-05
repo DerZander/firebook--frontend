@@ -18,16 +18,13 @@ http.interceptors.request.use((request) => {
 
   if (token) {
     scopedRequest.headers.Authorization = token;
-    console.log(scopedRequest.headers);
   }
-  console.log("request: ", scopedRequest);
   return scopedRequest;
 });
 
 http.interceptors.response.use(
   (resp) => resp,
   (err) => {
-    console.log();
     switch (err.response.status) {
       case 401:
         console.log("case 401");
