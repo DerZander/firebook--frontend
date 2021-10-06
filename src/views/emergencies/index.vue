@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CardComponent header="Einsätze">
+    <DynamicCardComponent header="Einsätze">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" v-for="emergency in emergencies" :key="emergency.id">
           <div class="card">
@@ -71,18 +71,19 @@
           </div>
         </div>
       </div>
-    </CardComponent>
+    </DynamicCardComponent>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import CardComponent from "@/components/CardComponent";
+// import CardComponent from "@/components/CardComponent";
 import TroopBadge from "@/views/emergencies/components/TroopBadge";
+import DynamicCardComponent from "@/components/DynamicCardComponent";
 
 export default {
   name: "index",
-  components: { TroopBadge, CardComponent },
+  components: { DynamicCardComponent, TroopBadge },
   computed: {
     ...mapGetters({
       emergencies: "Emergencies/all",

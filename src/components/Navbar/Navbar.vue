@@ -3,7 +3,15 @@
     class="navbar navbar-expand-lg navbar-light bg-light pb-0 shadow-sm rounded"
   >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Feuerwehrbuch</a>
+      <a class="navbar-brand" href="#">
+        <img
+          src="../../assets/icon.png"
+          alt=""
+          width="30"
+          class="d-inline-block"
+        />
+        Feuerwehrbuch
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -22,22 +30,13 @@
               >Home</router-link
             >
           </li>
-          <li :class="[{ active: currenPath === 'Beverages' }, 'nav-item']">
-            <router-link class="nav-link" :to="{ name: 'Beverages' }"
-              >Verpflegung</router-link
-            >
-          </li>
-          <li :class="[{ active: currenPath === 'Emergencies' }, 'nav-item']">
-            <router-link class="nav-link" :to="{ name: 'Emergencies' }"
+          <li
+            :class="[{ active: currenPath === 'EmergenciesIndex' }, 'nav-item']"
+          >
+            <router-link class="nav-link" :to="{ name: 'EmergenciesIndex' }"
               >Einsätze</router-link
             >
           </li>
-          <li :class="[{ active: currenPath === 'Calculations' }, 'nav-item']">
-            <router-link class="nav-link" :to="{ name: 'Calculations' }"
-              >Getränkeabrechnungen</router-link
-            >
-          </li>
-
           <li :class="[{ active: currenPath === 'Vehicles' }, 'nav-item']">
             <router-link class="nav-link" :to="{ name: 'Vehicles' }"
               >Fahrzeuge</router-link
@@ -73,10 +72,15 @@
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item">Profil</a>
+                  </li>
+                  <li>
+                    <router-link
+                      class="dropdown-item"
+                      :to="{ name: 'Calculations' }"
+                      >Getränkeabrechnungen</router-link
+                    >
                   </li>
                   <div
                     v-if="
@@ -90,16 +94,31 @@
                     <li>
                       <router-link
                         class="dropdown-item"
+                        :to="{ name: 'Beverages' }"
+                        >Verpflegung</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link
+                        class="dropdown-item"
                         :to="{ name: 'Calculations' }"
                       >
                         Getränkeabrechnungen
+                      </router-link>
+                    </li>
+                    <li>
+                      <router-link
+                        class="dropdown-item"
+                        :to="{ name: 'EmergenciesList' }"
+                      >
+                        Einsätze
                       </router-link>
                     </li>
                   </div>
                   <div v-if="tokenData.isUnitAdmin || tokenData.isAdmin">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Einheitsführung</h6></li>
-                    <li><a class="dropdown-item" href="#">beverages</a></li>
+                    <li><a class="dropdown-item" href="#">Mitglieder</a></li>
                   </div>
                   <div v-if="tokenData.isAdmin">
                     <li><hr class="dropdown-divider" /></li>
