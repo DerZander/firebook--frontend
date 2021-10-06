@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "../views/Home.vue";
-import Emergencies from "@/views/emergencies/index";
+import EmergenciesIndex from "@/views/emergencies/index";
+import EmergenciesCreate from "@/views/emergencies/create";
+import EmergenciesList from "@/views/emergencies/list";
 import Beverages from "@/views/beverages/index";
 import Login from "@/views/users/login";
 import Calculations from "@/views/calculations/index";
@@ -17,8 +19,20 @@ const router = new Router({
     { path: "/", name: "Home", component: Home },
     {
       path: "/emergencies",
-      name: "Emergencies",
-      component: Emergencies,
+      name: "EmergenciesIndex",
+      component: EmergenciesIndex,
+      meta: { unauthenticated: true },
+    },
+    {
+      path: "/emergencies",
+      name: "EmergenciesCreate",
+      component: EmergenciesCreate,
+      meta: { unauthenticated: true },
+    },
+    {
+      path: "/emergencies",
+      name: "EmergenciesList",
+      component: EmergenciesList,
       meta: { unauthenticated: true },
     },
     {
@@ -53,6 +67,7 @@ router.beforeEach((to, from, next) => {
   // const userData = store.getters["Login/data"];
 
   if (!token && !to.matched.some((record) => record.meta.unauthenticated)) {
+    console.log(to.path);
     next({ path: "/login", query: { q1: to.path } });
     return;
   }
