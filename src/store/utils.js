@@ -1,5 +1,8 @@
 export const onStartActions = [
-  // "Emergencies/all"
+  "Emergencies/all",
+  "Calculations/all",
+  "Members/all",
+  "Vehicles/all",
 ];
 
 export const doOnStartActions = (store) => {

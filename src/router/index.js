@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import Emergencies from "@/views/emergencies/index";
 import Beverages from "@/views/beverages/index";
 import Login from "@/views/users/login";
+import Calculations from "@/views/calculations/index";
+import Vehicles from "@/views/vehicles/index";
 
 import store from "@/store";
 
@@ -26,6 +28,18 @@ const router = new Router({
       meta: { unauthenticated: false },
     },
     {
+      path: "/calculations",
+      name: "Calculations",
+      component: Calculations,
+      meta: { unauthenticated: false },
+    },
+    {
+      path: "/vehicles",
+      name: "Vehicles",
+      component: Vehicles,
+      meta: { unauthenticated: false },
+    },
+    {
       path: "/login",
       name: "Login",
       component: Login,
@@ -42,7 +56,6 @@ router.beforeEach((to, from, next) => {
     next({ path: "/login", query: { q1: to.path } });
     return;
   }
-
   // if (to.meta.allowedRoles) {
   //   if (!to.matched.some(recrod => recrod.meta.allowedRoles.includes(parseInt(userData.role)))) {
   //     // ALERT
@@ -53,11 +66,5 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
-//
-// const router = new VueRouter({
-//   mode: "history",
-//   base: process.env.BASE_URL,
-//   routes,
-// });
 
 export default router;

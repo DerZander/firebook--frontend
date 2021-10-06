@@ -1,14 +1,31 @@
 <template>
   <div id="app">
     <Navbar />
-    <router-view />
+    <div class="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
+import { doOnStartActions } from "@/store/utils";
+
 export default {
+  name: "App",
   components: { Navbar },
+  created() {
+    if (this.isLoggedIn) {
+      doOnStartActions(this.$store);
+    }
+  },
+  watch: {
+    isLoogedIn: function (val) {
+      if (val) {
+        doOnStartActions(this.$store);
+      }
+    },
+  },
 };
 </script>
 
@@ -17,7 +34,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
