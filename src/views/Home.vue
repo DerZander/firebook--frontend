@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="">
+    <div class="m-2 text-center">
+      <h1>Willkommen auf</h1>
+      <img alt="Vue logo" src="../assets/logo.png" width="50%" />
+      <p>Von Kamerade für Kameraden der Feiwilligen Feuerwehr Bedburg.</p>
+      <p>
+        Auf dieser Seite können alle Einsätze, Fahrzeuge und
+        Getränkeabrechnungen eingesehen werden
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
-  },
+  components: {},
 };
 </script>

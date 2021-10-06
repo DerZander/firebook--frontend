@@ -1,6 +1,6 @@
 <template>
   <div class="card m-2">
-    <div class="card-header text-center pb-0">
+    <div class="card-header pb-0">
       <h5 class="pb-0">
         {{ header }}
       </h5>
