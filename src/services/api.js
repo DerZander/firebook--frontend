@@ -2,7 +2,8 @@ import axios from "axios";
 import store from "../store/index";
 
 const http = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE || "http://localhost:3000/api/",
+  baseURL:
+    process.env.VUE_APP_API_BASE || "http://www.backend.zander-dev.de/api/",
   headers: {
     "Content-type": "application/json",
   },
