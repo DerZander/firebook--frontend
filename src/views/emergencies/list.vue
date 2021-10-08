@@ -93,6 +93,9 @@ export default {
       emergencies: "Emergencies/all",
     }),
   },
+  methods: {
+    //TODO: showModal und EditForm
+  },
   mounted() {
     this.$store.dispatch("Emergencies/all");
   },
