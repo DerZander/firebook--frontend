@@ -20,7 +20,7 @@
         />
       </div>
       <div class="col-auto">
-        <button class="btn btn-success" @click="login">Senden</button>
+        <button class="btn btn-success" @click="login">Login</button>
       </div>
     </div>
   </div>
