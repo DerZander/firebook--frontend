@@ -12,7 +12,6 @@ export class Model {
 
   constructor(mapping, path, _obj) {
     this.path = path;
-    console.log("Path", this.path);
     Model.validateMapping(mapping);
     const obj = _obj || {};
     Object.entries(mapping).forEach(([key, mappingData]) => {

@@ -32,6 +32,19 @@ const actions = {
         });
     });
   },
+  register({ commit }, registerData) {
+    return new Promise((res, rej) => {
+      api
+        .post("users/register/", registerData)
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => {
+          commit("logout");
+          rej(err);
+        });
+    });
+  },
   logout({ commit }) {
     return new Promise((resolve) => {
       commit("logout");

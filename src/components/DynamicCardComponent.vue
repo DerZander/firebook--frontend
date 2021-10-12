@@ -24,7 +24,10 @@ cardNav: [
 
 <template>
   <div class="card m-2 shadow-sm">
-    <div v-if="header || cardNavs.length" class="card-header pb-0">
+    <div
+      v-if="header || cardNavs.length"
+      class="card-header pb-0 d-flex justify-content-between"
+    >
       <div class="card-title font-size-120">
         <ul v-if="cardNavs.length > 0" class="nav nav-tabs card-header-tabs">
           <li class="nav-item" v-for="cardNav in cardNavs" :key="cardNav.id">

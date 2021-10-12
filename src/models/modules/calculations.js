@@ -1,5 +1,5 @@
 import { Model } from "../model";
-import { Emergencies } from "@/models";
+import { Emergency } from "@/models";
 
 export default class Calculations extends Model {
   static ENDPOINT_PATH = "calculations/";
@@ -14,7 +14,7 @@ export default class Calculations extends Model {
     members_total: { type: Model.TYPES.Number, default: 0.0 },
     emergencies_total: { type: Model.TYPES.Number, default: 0.0 },
     emergencies: {
-      type: Emergencies,
+      type: Emergency,
       default: [],
       isArray: true,
       isNested: true,

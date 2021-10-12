@@ -111,9 +111,11 @@ NOTES: * Sorting is only possible if the sorting attribute is a string * */
               </div>
             </td>
           </tr>
-          <tr v-if="loading">
-            <td class="justify-content-center">loading</td>
-          </tr>
+          <!--          <tr v-if="loading">-->
+          <!--            <td class="justify-content-center">-->
+          <!--&lt;!&ndash;              <FlameLoader />&ndash;&gt;-->
+          <!--            </td>-->
+          <!--          </tr>-->
         </tbody>
       </div>
     </table>
@@ -121,7 +123,7 @@ NOTES: * Sorting is only possible if the sorting attribute is a string * */
 </template>
 
 <script>
-// import Scrollable from "@/services/scrollable";
+import Scrollable from "@/services/scrollable";
 
 export default {
   name: "List",
@@ -234,24 +236,27 @@ export default {
     if (Object.keys(this.map).length) {
       this.sorting.property = Object.values(this.map)[0].sort;
     }
-    // this.scrollable = new Scrollable(".scrollable");
-    // const container = document.querySelector(".scrollable");
-    // container.addEventListener("ps-scroll-y", () => {
-    //   this.scroll_state = this.scrollable.ps[0].reach.y;
-    // });
-    // container.addEventListener("ps-y-reach-start", () => {
-    //   this.$emit("start");
-    // });
-    // container.addEventListener("ps-y-reach-end", () => {
-    //   this.$emit("end");
-    // });
+    this.scrollable = new Scrollable(".scrollable");
+    const container = document.querySelector(".scrollable");
+    container.addEventListener("ps-scroll-y", () => {
+      this.scroll_state = this.scrollable.ps[0].reach.y;
+    });
+    container.addEventListener("ps-y-reach-start", () => {
+      this.$emit("start");
+    });
+    container.addEventListener("ps-y-reach-end", () => {
+      this.$emit("end");
+    });
   },
   updated() {
-    // const container = document.querySelector(".scrollable");
-    // if (container.classList.contains("ps--active-y") && this.scroll_state === undefined) {
-    //   this.scroll_state = "start";
-    // }
-    // this.scrollable.update();
+    const container = document.querySelector(".scrollable");
+    if (
+      container.classList.contains("ps--active-y") &&
+      this.scroll_state === undefined
+    ) {
+      this.scroll_state = "start";
+    }
+    this.scrollable.update();
   },
 };
 </script>

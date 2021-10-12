@@ -1,60 +1,107 @@
 <template>
-  <div class="h-100 shapebackground">
-    <div class="container d-flex flex-column">
-      <div class="row align-items-center justify-content-center g-0 min-vh-100">
-        <div
-          class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0"
-          style="margin-bottom: 17rem"
-        >
-          <!-- Card -->
-          <div class="card smooth-shadow-md">
-            <!-- Card body -->
-            <div class="card-body p-6">
-              <!-- Username -->
-              <div class="mb-3">
-                <label class="form-label">Username or email</label>
-                <input
-                  class="form-control"
-                  placeholder="Email address here"
-                  required=""
-                  v-model="username"
-                />
-              </div>
-              <!-- Password -->
-              <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  placeholder="***********"
-                  required=""
-                  v-model="password"
-                />
-              </div>
-              <div>
-                <!-- Button -->
-                <div class="d-grid">
-                  <button class="btn btn-primary" @click="login">
-                    Sign in
-                  </button>
-                </div>
-              </div>
-            </div>
+  <div class="row d-flex justify-content-center mt-4">
+    <div class="col-4">
+      <CardComponent header="Regristiere dich!">
+        <div>
+          <div class="mb-3">
+            <label for="reg-username" class="form-label">Benutzername</label>
+            <input
+              id="reg-username"
+              type="text"
+              class="form-control"
+              name="username"
+              v-model="username"
+              placeholder="Kamerad112"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="reg-email" class="form-label">Email</label>
+            <input
+              id="reg-email"
+              type="email"
+              class="form-control"
+              name="email"
+              v-model="email"
+              placeholder="kamerad112@email.com"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="reg-password" class="form-label">Passwort</label>
+            <input
+              id="reg-password"
+              type="password"
+              class="form-control"
+              name="password"
+              v-model="password"
+              placeholder="***********"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="reg-password_repeat" class="form-label"
+              >Passwort wiederholen</label
+            >
+            <input
+              id="reg-password_repeat"
+              type="password"
+              class="form-control"
+              name="password_repeat"
+              v-model="password_repeat"
+              placeholder="***********"
+            />
+          </div>
+          <div class="mb-3 d-flex flex-row-reverse">
+            <button class="btn btn-primary" @click="register()">
+              Registrieren
+            </button>
           </div>
         </div>
-      </div>
+      </CardComponent>
+    </div>
+    <div class="col-4">
+      <CardComponent header="Logge dich ein!">
+        <div>
+          <div class="mb-3">
+            <label for="login-username" class="form-label">Benutzername</label>
+            <input
+              id="login-username"
+              type="text"
+              class="form-control"
+              name="username"
+              v-model="username"
+              placeholder="Kamerad112"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="login-password" class="form-label">Passwort</label>
+            <input
+              id="login-password"
+              type="password"
+              class="form-control"
+              name="password"
+              v-model="password"
+              placeholder="***********"
+            />
+          </div>
+          <div class="mb-3 d-flex flex-row-reverse">
+            <button class="btn btn-success" @click="login()">Login</button>
+          </div>
+        </div>
+      </CardComponent>
     </div>
   </div>
 </template>
 
 <script>
+import CardComponent from "@/components/CardComponent";
 export default {
   name: "login",
+  components: { CardComponent },
   data() {
     return {
       username: "",
+      email: this.email,
       password: "",
+      password_repeat: "",
     };
   },
   methods: {
@@ -67,6 +114,14 @@ export default {
         .then(() => {
           this.$router.push({ name: "Home" });
         });
+    },
+    register() {
+      this.$store.dispatch("Login/register", {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        password_repeat: this.password_repeat,
+      });
     },
   },
 };
