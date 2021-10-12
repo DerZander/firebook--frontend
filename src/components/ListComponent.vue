@@ -57,29 +57,29 @@
             </button>
           </td>
           <td v-if="deleteBtn">
-            <v-popover>
-              <button class="btn btn btn-outline-danger">
-                <i class="fa fa-fw fa-trash"></i>
-              </button>
-              <template slot="popover">
-                <p>
-                  {{ $t("sure_delete") }}
-                </p>
-                <a v-close-popover>
-                  <button
-                    class="btn btn btn-outline-danger tooltip-target"
-                    @click="$emit('delete', item)"
-                  >
-                    {{ $t("yes") }}
-                  </button>
-                </a>
-                <a v-close-popover>
-                  <button class="btn btn btn-outline-danger tooltip-target">
-                    {{ $t("no") }}
-                  </button>
-                </a>
-              </template>
-            </v-popover>
+            <!--            <VPopover>-->
+            <!--              <button class="btn btn btn-outline-danger">-->
+            <!--                <i class="fa fa-fw fa-trash"></i>-->
+            <!--              </button>-->
+            <!--              <template slot="popover">-->
+            <!--                <p>-->
+            <!--                  Sicher?-->
+            <!--                </p>-->
+            <!--                <a v-close-popover>-->
+            <!--                  <button-->
+            <!--                    class="btn btn btn-outline-danger tooltip-target"-->
+            <!--                    @click="$emit('delete', item)"-->
+            <!--                  >-->
+            <!--                    Ja-->
+            <!--                  </button>-->
+            <!--                </a>-->
+            <!--                <a v-close-popover>-->
+            <!--                  <button class="btn btn btn-outline-danger tooltip-target">-->
+            <!--                    Nein-->
+            <!--                  </button>-->
+            <!--                </a>-->
+            <!--              </template>-->
+            <!--            </VPopover>-->
           </td>
           <td v-if="switchBtn">
             <div
@@ -108,6 +108,7 @@
 <script>
 export default {
   name: "ListComponent",
+  components: {},
   props: {
     map: Object,
     list: Array,

@@ -1,28 +1,6 @@
 <template>
   <div>
-    <DynamicCardComponent header="Admin Einsätze">
-      <button class="btn btn-success" @click="getItemData()">Hinzufügen</button>
-      <div>
-        <ListComponent
-          :map="{
-            '#': { display: 'id', sort: 'id' },
-            Einsatznummer: { display: 'e_number', sort: 'e_number' },
-          }"
-          :list="emergencies"
-          :edit-btn="true"
-          @edit="getItemData"
-        />
-      </div>
-      <Modal
-        :header="'Einsatz'"
-        :id="1"
-        v-if="showModal"
-        @close="showModal = false"
-      >
-        <Create :item="item" @saved="showModal = false" />
-      </Modal>
-    </DynamicCardComponent>
-    <DynamicCardComponent2 header="Admin Einsätze Meine Card">
+    <DynamicCardComponent header="Admin Einsätze Meine Card">
       <template v-slot:headerextra>
         <button class="btn btn-success btn-sm" @click="getItemData()">
           Hinzufügen
@@ -36,6 +14,7 @@
           }"
           :list="emergencies"
           :edit-btn="true"
+          :delete-btn="true"
           @edit="getItemData"
         />
         <Modal
@@ -44,16 +23,17 @@
           v-if="showModal"
           @close="showModal = false"
         >
-          <Create :item="item" @saved="showModal = false" />
+          <template v-slot:default>
+            <Create :item="item" @saved="showModal = false" />
+          </template>
         </Modal>
       </template>
-    </DynamicCardComponent2>
+    </DynamicCardComponent>
   </div>
 </template>
 
 <script>
-import DynamicCardComponent from "@/components/op/DynamicCardComponent";
-import DynamicCardComponent2 from "@/components/DynamicCardComponent";
+import DynamicCardComponent from "@/components/DynamicCardComponent";
 import { mapGetters } from "vuex";
 import Create from "@/views/emergencies/create";
 import Modal from "@/components/Modal";
@@ -75,7 +55,6 @@ export default {
     Modal,
     Create,
     DynamicCardComponent,
-    DynamicCardComponent2,
   },
   computed: {
     ...mapGetters({
@@ -88,6 +67,10 @@ export default {
         this.item = new Emergency();
       } else {
         this.item = item;
+        this.router.push({
+          name: "EmergenciesEdit",
+          params: { id: this.item.id },
+        });
       }
       this.showModal = true;
     },

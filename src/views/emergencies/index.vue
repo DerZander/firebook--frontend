@@ -79,7 +79,7 @@
 import { mapGetters } from "vuex";
 // import CardComponent from "@/components/CardComponent";
 import TroopBadge from "@/views/emergencies/components/TroopBadge";
-import DynamicCardComponent from "@/components/DynamicCardComponent";
+import DynamicCardComponent from "@/components/op/DynamicCardComponent";
 
 export default {
   name: "index",

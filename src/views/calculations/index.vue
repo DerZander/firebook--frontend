@@ -74,7 +74,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import CardComponent from "@/components/CardComponent";
+import CardComponent from "@/components/op/CardComponent";
 
 export default {
   name: "index",

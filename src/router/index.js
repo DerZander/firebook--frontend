@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "../views/Home.vue";
 import EmergenciesIndex from "@/views/emergencies/index";
-import EmergenciesCreate from "@/views/emergencies/create";
+import EmergenciesEdit from "@/views/emergencies/edit";
 import EmergenciesList from "@/views/emergencies/list";
 import Beverages from "@/views/beverages/index";
 import Login from "@/views/users/login";
@@ -24,9 +24,9 @@ const router = new Router({
       meta: { unauthenticated: true },
     },
     {
-      path: "/emergencies",
-      name: "EmergenciesCreate",
-      component: EmergenciesCreate,
+      path: "/emergencies/:id",
+      name: "EmergenciesEdit",
+      component: EmergenciesEdit,
       meta: { unauthenticated: true },
     },
     {

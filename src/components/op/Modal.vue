@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition name="modal">
+    <transition name="modal scrollable">
       <div class="modal-backdrop show" />
     </transition>
     <div
@@ -24,11 +24,8 @@
               <i class="fas fa-times"></i>
             </button>
           </div>
-          <div class="modal-body background-color-secondary flex-grow-1">
-            <slot name="default" />
-          </div>
-          <div class="modal-footer" v-if="footer">
-            <slot name="footer" v-if="footer" />
+          <div class="modal-body p-2 background-color-secondary flex-grow-1">
+            <slot />
           </div>
         </div>
       </div>
@@ -37,6 +34,8 @@
 </template>
 
 <script>
+import Scrollable from "@/services/scrollable";
+
 export default {
   name: "Modal",
   props: {
@@ -51,15 +50,40 @@ export default {
     item: {
       type: Object,
     },
-    footer: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
-    return {};
+    return {
+      scrollable: null,
+      scroll_state: undefined,
+    };
+  },
+  mounted() {
+    this.scrollable = new Scrollable(".scrollable");
+    const container = document.querySelector(".scrollable");
+    container.addEventListener("ps-scroll-y", () => {
+      this.scroll_state = this.scrollable.ps[0].reach.y;
+    });
+    container.addEventListener("ps-y-reach-start", () => {
+      this.$emit("start");
+    });
+    container.addEventListener("ps-y-reach-end", () => {
+      this.$emit("end");
+    });
+  },
+  updated() {
+    const container = document.querySelector(".scrollable");
+    if (
+      container.classList.contains("ps--active-y") &&
+      this.scroll_state === undefined
+    ) {
+      this.scroll_state = "start";
+    }
+    this.scrollable.update();
   },
 };
 </script>
-
-<style scoped></style>
+<style>
+.modal-body {
+  height: 70vh;
+}
+</style>
