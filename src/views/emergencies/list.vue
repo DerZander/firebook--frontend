@@ -3,28 +3,6 @@
     <DynamicCardComponent header="Admin Einsätze">
       <button class="btn btn-success" @click="getItemData()">Hinzufügen</button>
       <div>
-        <List
-          :map="{
-            '#': { display: 'id', sort: 'id' },
-            Einsatznummer: { display: 'e_number', sort: 'e_number' },
-          }"
-          :list="emergencies"
-          :edit-btn="true"
-          @edit="getItemData"
-        />
-      </div>
-      <Modal
-        :header="'Einsatz'"
-        :id="1"
-        v-if="showModal"
-        @close="showModal = false"
-      >
-        <Create :item="item" @saved="showModal = false" />
-      </Modal>
-    </DynamicCardComponent>
-    <DynamicCardComponent header="Admin Einsätze Meine Liste">
-      <button class="btn btn-success" @click="getItemData()">Hinzufügen</button>
-      <div>
         <ListComponent
           :map="{
             '#': { display: 'id', sort: 'id' },
@@ -44,12 +22,38 @@
         <Create :item="item" @saved="showModal = false" />
       </Modal>
     </DynamicCardComponent>
+    <DynamicCardComponent2 header="Admin Einsätze Meine Card">
+      <template v-slot:headerextra>
+        <button class="btn btn-success btn-sm" @click="getItemData()">
+          Hinzufügen
+        </button>
+      </template>
+      <template v-slot:default>
+        <ListComponent
+          :map="{
+            '#': { display: 'id', sort: 'id' },
+            Einsatznummer: { display: 'e_number', sort: 'e_number' },
+          }"
+          :list="emergencies"
+          :edit-btn="true"
+          @edit="getItemData"
+        />
+        <Modal
+          :header="'Einsatz'"
+          :id="1"
+          v-if="showModal"
+          @close="showModal = false"
+        >
+          <Create :item="item" @saved="showModal = false" />
+        </Modal>
+      </template>
+    </DynamicCardComponent2>
   </div>
 </template>
 
 <script>
-import DynamicCardComponent from "@/components/DynamicCardComponent";
-import List from "@/components/op/List";
+import DynamicCardComponent from "@/components/op/DynamicCardComponent";
+import DynamicCardComponent2 from "@/components/DynamicCardComponent";
 import { mapGetters } from "vuex";
 import Create from "@/views/emergencies/create";
 import Modal from "@/components/Modal";
@@ -71,7 +75,7 @@ export default {
     Modal,
     Create,
     DynamicCardComponent,
-    List,
+    DynamicCardComponent2,
   },
   computed: {
     ...mapGetters({
