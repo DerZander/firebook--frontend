@@ -1,6 +1,6 @@
 import Vue from "vue";
-import api from "@/services/api";
 import { Model } from "@/models/model";
+import api from "@/services/api";
 
 export class ModelManager {
   constructor(Clazz) {
@@ -65,8 +65,6 @@ export class ModelManager {
         api
           .get(this.Clazz.ENDPOINT_PATH)
           .then((resp) => {
-            console.log(this.Clazz.ENDPOINT_PATH);
-            console.log(resp);
             let newItem = false;
             resp.data.results.forEach((newInstance) => {
               if (

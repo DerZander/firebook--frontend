@@ -1,10 +1,9 @@
 import { Model } from "../model";
-// import { Vehicles } from "@/models";
 
-export default class Emergencies extends Model {
+export default class Emergency extends Model {
   static ENDPOINT_PATH = "emergencies/";
 
-  static NAME = "Emergencies";
+  static NAME = "Emergency";
 
   static MAPPING = {
     id: { type: Model.TYPES.Primary, default: undefined },
@@ -15,6 +14,6 @@ export default class Emergencies extends Model {
   };
 
   constructor(obj) {
-    super(Emergencies.MAPPING, Emergencies.ENDPOINT_PATH, obj);
+    super(Emergency.MAPPING, Emergency.ENDPOINT_PATH, obj);
   }
 }

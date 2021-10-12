@@ -1,5 +1,5 @@
 import { Model } from "../model";
-import { Emergencies } from "@/models";
+import { Emergency } from "@/models";
 import { Vehicles } from "@/models";
 
 export default class EmergencyVehicles extends Model {
@@ -9,7 +9,7 @@ export default class EmergencyVehicles extends Model {
 
   static MAPPING = {
     id: { type: Model.TYPES.Primary, default: undefined },
-    emergency_id: { type: Emergencies, default: undefined },
+    emergency_id: { type: Emergency, default: undefined },
     vehicle_id: { type: Vehicles, default: undefined },
   };
 

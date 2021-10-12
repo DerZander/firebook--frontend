@@ -30,7 +30,7 @@ const router = new Router({
       meta: { unauthenticated: true },
     },
     {
-      path: "/emergencies",
+      path: "/emergencies-list",
       name: "EmergenciesList",
       component: EmergenciesList,
       meta: { unauthenticated: true },

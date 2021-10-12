@@ -1,7 +1,8 @@
 import { ModelManager } from "../manager";
-import { Emergencies } from "@/models";
+import { Emergency } from "@/models";
+import api from "@/services/api";
 
-const manager = new ModelManager(Emergencies);
+const manager = new ModelManager(Emergency);
 
 const state = {
   manager,
@@ -14,6 +15,18 @@ const getters = {
 
 const actions = {
   ...manager.actions,
+  delete() {
+    return new Promise((resolve, reject) => {
+      api
+        .delete(this.endpoint)
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  },
 };
 
 const mutations = {
