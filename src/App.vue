@@ -4,16 +4,18 @@
     <div class="content">
       <router-view />
     </div>
+    <Alert />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar/Navbar";
 import { doOnStartActions } from "@/store/utils";
+import Alert from "@/components/Alert/Alert";
 
 export default {
   name: "App",
-  components: { Navbar },
+  components: { Alert, Navbar },
   created() {
     if (this.isLoggedIn) {
       doOnStartActions(this.$store);

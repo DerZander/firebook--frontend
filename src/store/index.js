@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Alert from "@/store/modules/alert";
 import Emergencies from "@/store/modules/emergencies";
 import Login from "@/store/modules/login";
 import Beverages from "@/store/modules/beverages";
@@ -12,6 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    Alert,
     Calculations,
     Emergencies,
     EmergencyVehicles,

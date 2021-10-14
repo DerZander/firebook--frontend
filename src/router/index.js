@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import Home from "../views/Home.vue";
 import EmergenciesIndex from "@/views/emergencies/index";
 import AdminEmergenciesEdit from "@/views/emergencies/edit";
@@ -10,6 +11,7 @@ import AdminCalculationsIndex from "@/views/admin/calculations";
 import Vehicles from "@/views/vehicles/index";
 
 import store from "@/store";
+import { Alert } from "@/models";
 
 Vue.use(Router);
 
@@ -21,28 +23,27 @@ const router = new Router({
       path: "/emergencies",
       name: "EmergenciesIndex",
       component: EmergenciesIndex,
-      meta: { unauthenticated: true },
+      meta: {
+        unauthenticated: true,
+        allowedRoles: [0, 1, 2, 3],
+      },
     },
     {
-      path: "/emergencies/:id",
+      path: "/admin/emergencies/:id",
       name: "EmergenciesEdit",
       component: AdminEmergenciesEdit,
       meta: {
         unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
+        allowedRoles: [1, 2, 3],
       },
     },
     {
-      path: "/emergencies-list",
+      path: "/admin/emergencies",
       name: "EmergenciesList",
       component: AdminEmergenciesList,
       meta: {
         unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
+        allowedRoles: [1, 2, 3],
       },
     },
     {
@@ -57,9 +58,7 @@ const router = new Router({
       component: AdminCalculationsIndex,
       meta: {
         unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
+        allowedRoles: [1],
       },
     },
     {
@@ -68,9 +67,6 @@ const router = new Router({
       component: Vehicles,
       meta: {
         unauthenticated: false,
-        isBeverageAdmin: false,
-        isUnitAdmin: true,
-        isAdmin: true,
       },
     },
     {
@@ -84,35 +80,33 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const token = store.getters["Login/isLoggedIn"];
-  // const userData = store.getters["Login/data"];
+  const userData = store.getters["Login/data"];
 
   if (!token && !to.matched.some((record) => record.meta.unauthenticated)) {
     console.log(to.path);
     next({ path: "/login", query: { q1: to.path } });
     return;
   }
-  if (!token && !to.matched.some((record) => record.meta.isBeverageAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
+  if (to.meta.allowedRoles) {
+    if (
+      !to.matched.some((record) =>
+        record.meta.allowedRoles.includes(parseInt(userData.role))
+      )
+    ) {
+      const alert = new Alert().setType(Alert.DANGER);
+      if (window.app) {
+        alert.setMessage(
+          "Sie besitzen nicht genug Rechte um diese Seite aufzurufen."
+        );
+        alert.setHeader("Falsche Berechtigung");
+      }
+      store.dispatch("Alert/add", alert);
+
+      next({ path: "/home" });
+
+      return;
+    }
   }
-  if (!token && !to.matched.some((record) => record.meta.isUnitAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
-  }
-  if (!token && !to.matched.some((record) => record.meta.isAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
-  }
-  // if (to.meta.allowedRoles) {
-  //   if (!to.matched.some(recrod => recrod.meta.allowedRoles.includes(parseInt(userData.role)))) {
-  //     // ALERT
-  //
-  //     return;
-  //   }
-  // }
 
   next();
 });
