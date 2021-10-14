@@ -15,12 +15,12 @@
               </li>
               <li
                 class="list-group-item text-left"
-                type="button"
                 aria-current="true"
                 data-bs-toggle="collapse"
                 :data-bs-target="'#collapseemergency' + emergency.id"
                 aria-expanded="false"
                 :aria-controls="'collapseemergency' + emergency.id"
+                v-if="emergency.vehicles.length > 0"
               >
                 <div class="d-flex justify-content-between">
                   <div>Fahrzeuge im Einsatz:</div>
@@ -77,9 +77,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import CardComponent from "@/components/CardComponent";
 import TroopBadge from "@/views/emergencies/components/TroopBadge";
-import DynamicCardComponent from "@/components/DynamicCardComponent";
+import DynamicCardComponent from "@/components/op/DynamicCardComponent";
 
 export default {
   name: "index",

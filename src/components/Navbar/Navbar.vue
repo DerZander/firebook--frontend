@@ -1,6 +1,13 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-light bg-light pb-0 shadow-sm rounded"
+    class="
+      navbar navbar-expand-lg navbar-light
+      bg-light
+      pb-0
+      pt-0
+      shadow-sm
+      rounded
+    "
   >
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -23,24 +30,64 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li :class="[{ active: currenPath === 'Home' }, 'nav-item']">
-            <router-link class="nav-link" :to="{ name: 'Home' }"
-              >Home</router-link
-            >
+      <div
+        class="collapse navbar-collapse"
+        id="navbarText"
+        v-if="tokenData.userId"
+      >
+        <ul class="navbar-nav me-auto mb-lg-0">
+          <li
+            :class="[
+              { active: currenPath === 'Home' },
+              'nav-item align-middle',
+            ]"
+          >
+            <router-link class="nav-link align-middle" :to="{ name: 'Home' }">
+              <i class="fas fa-home"></i>
+              <span class="align-middle"> Home</span>
+            </router-link>
           </li>
           <li
-            :class="[{ active: currenPath === 'EmergenciesIndex' }, 'nav-item']"
+            :class="[
+              { active: currenPath === 'EmergenciesIndex' },
+              'nav-item align-middle',
+            ]"
           >
-            <router-link class="nav-link" :to="{ name: 'EmergenciesIndex' }"
-              >Einsätze</router-link
+            <router-link
+              class="nav-link align-middle"
+              :to="{ name: 'EmergenciesIndex' }"
             >
+              <i class="fas fa-fire"></i>
+              <span class="align-middle"> Einsätze</span>
+            </router-link>
           </li>
-          <li :class="[{ active: currenPath === 'Vehicles' }, 'nav-item']">
-            <router-link class="nav-link" :to="{ name: 'Vehicles' }"
-              >Fahrzeuge</router-link
+          <li
+            :class="[
+              { active: currenPath === 'Vehicles' },
+              'nav-item align-middle',
+            ]"
+          >
+            <router-link
+              class="nav-link align-middle"
+              :to="{ name: 'Vehicles' }"
             >
+              <i class="fas fa-ambulance"></i>
+              <span class="align-middle"> Fahrzeuge</span>
+            </router-link>
+          </li>
+          <li
+            :class="[
+              { active: currenPath === 'Vehicles' },
+              'nav-item align-middle',
+            ]"
+          >
+            <router-link
+              class="nav-link align-middle"
+              :to="{ name: 'Vehicles' }"
+            >
+              <i class="fas fa-beer"></i>
+              <span class="align-middle"> Getränke</span>
+            </router-link>
           </li>
         </ul>
         <div class="navbar-text" v-if="tokenData.userId">
@@ -136,9 +183,6 @@
             </ul>
           </div>
         </div>
-        <div class="navbar-text" v-else>
-          <LoginForm />
-        </div>
       </div>
     </div>
   </nav>
@@ -146,11 +190,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import LoginForm from "@/components/Auth/LoginForm";
 
 export default {
   name: "Navbar",
-  components: { LoginForm },
+  components: {},
   computed: {
     ...mapGetters({
       tokenData: "Login/data",
