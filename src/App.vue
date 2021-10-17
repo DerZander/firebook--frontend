@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="content">
-      <router-view />
+    <div class="d-flex justify-content-center p-2">
+      <router-view class="w-75" />
     </div>
     <Alert />
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="alert z-index-above-popup" :class="['alert-' + alert.type]">
-    <h5 class="alert-heading">
+    <h5 v-if="alert.header" class="alert-heading">
       {{ alert.header }}
     </h5>
     {{ alert.message }}

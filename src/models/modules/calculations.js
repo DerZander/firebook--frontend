@@ -8,10 +8,12 @@ export default class Calculations extends Model {
 
   static MAPPING = {
     id: { type: Model.TYPES.Primary, default: undefined },
-    created: { type: Model.TYPES.Date, default: "" },
+    created_at: { type: Model.TYPES.Date, default: "" },
     month: { type: Model.TYPES.Number, default: "" },
     year: { type: Model.TYPES.Number, default: "" },
     members_total: { type: Model.TYPES.Number, default: 0.0 },
+    members_total_open: { type: Model.TYPES.Number, default: 0.0 },
+    members_total_paid: { type: Model.TYPES.Number, default: 0.0 },
     emergencies_total: { type: Model.TYPES.Number, default: 0.0 },
     emergencies: {
       type: Emergency,
@@ -39,7 +41,7 @@ export default class Calculations extends Model {
       case 3:
         return "März";
       case 4:
-        return "Arpil";
+        return "April";
       case 5:
         return "Mai";
       case 6:
@@ -59,5 +61,22 @@ export default class Calculations extends Model {
       default:
         return "";
     }
+  }
+
+  static getAllMonths() {
+    return {
+      1: { name: "Januar", value: 1 },
+      2: { name: "Februar", value: 2 },
+      3: { name: "März", value: 3 },
+      4: { name: "April", value: 4 },
+      5: { name: "Mai", value: 5 },
+      6: { name: "Juni", value: 6 },
+      7: { name: "Juli", value: 7 },
+      8: { name: "August", value: 8 },
+      9: { name: "September", value: 9 },
+      10: { name: "Oktober", value: 10 },
+      11: { name: "November", value: 11 },
+      12: { name: "Dezember", value: 12 },
+    };
   }
 }

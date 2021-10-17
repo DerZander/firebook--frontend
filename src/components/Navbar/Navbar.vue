@@ -63,6 +63,20 @@
           </li>
           <li
             :class="[
+              { active: currenPath === 'UsersIndex' },
+              'nav-item align-middle',
+            ]"
+          >
+            <router-link
+              class="nav-link align-middle"
+              :to="{ name: 'UsersIndex' }"
+            >
+              <i class="fas fa-users"></i>
+              <span class="align-middle"> Kameraden</span>
+            </router-link>
+          </li>
+          <li
+            :class="[
               { active: currenPath === 'Vehicles' },
               'nav-item align-middle',
             ]"
@@ -83,7 +97,7 @@
           >
             <router-link
               class="nav-link align-middle"
-              :to="{ name: 'Vehicles' }"
+              :to="{ name: 'CalculationsIndex' }"
             >
               <i class="fas fa-beer"></i>
               <span class="align-middle"> Getränke</span>
@@ -120,22 +134,20 @@
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
                   <li>
-                    <a class="dropdown-item">Profil</a>
+                    <router-link
+                      class="dropdown-item"
+                      :to="{ name: 'UsersIndex' }"
+                      >Profil</router-link
+                    >
                   </li>
                   <li>
                     <router-link
                       class="dropdown-item"
-                      :to="{ name: 'Calculations' }"
+                      :to="{ name: 'AdminCalculationsIndex' }"
                       >Getränkeabrechnungen</router-link
                     >
                   </li>
-                  <div
-                    v-if="
-                      tokenData.isBeverageAdmin ||
-                      tokenData.isUnitAdmin ||
-                      tokenData.isAdmin
-                    "
-                  >
+                  <div v-if="tokenData.role > 0">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Getränkewarte</h6></li>
                     <li>
@@ -148,7 +160,7 @@
                     <li>
                       <router-link
                         class="dropdown-item"
-                        :to="{ name: 'Calculations' }"
+                        :to="{ name: 'AdminCalculationsIndex' }"
                       >
                         Getränkeabrechnungen
                       </router-link>
@@ -162,12 +174,12 @@
                       </router-link>
                     </li>
                   </div>
-                  <div v-if="tokenData.isUnitAdmin || tokenData.isAdmin">
+                  <div v-if="tokenData.role > 2">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Einheitsführung</h6></li>
                     <li><a class="dropdown-item" href="#">Mitglieder</a></li>
                   </div>
-                  <div v-if="tokenData.isAdmin">
+                  <div v-if="tokenData.role === 3">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Admin</h6></li>
                     <li><a class="dropdown-item" href="#">Admin</a></li>

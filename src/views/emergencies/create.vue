@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     createEmergency() {
-      console.log(this.$store.getters["Login/token"]);
       this.inOrder = true;
       if (!this.item.keyword || !this.item.e_number || !this.item.date) {
         console.log("wrong");
