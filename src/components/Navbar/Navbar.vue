@@ -183,6 +183,14 @@
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Admin</h6></li>
                     <li><a class="dropdown-item" href="#">Admin</a></li>
+                    <li>
+                      <router-link
+                        class="dropdown-item"
+                        :to="{ name: 'AdminTesting' }"
+                      >
+                        Testing
+                      </router-link>
+                    </li>
                   </div>
                   <li><hr class="dropdown-divider" /></li>
                   <li>
