@@ -1,5 +1,7 @@
 <template>
-  <DynamicCardComponent :header="`Abrechnung Mitglieder für: `">
+  <DynamicCardComponent
+    :header="`Abrechnung Mitglieder für: ${calculation.getCalcName()}`"
+  >
     Hi{{ calculation }}
   </DynamicCardComponent>
 </template>
@@ -11,12 +13,20 @@ export default {
   name: "list",
   components: { DynamicCardComponent },
   computed: {
-    ...mapGetters({
-      // calculation: this.$store.getters["Calculations/byId"](1),
-    }),
+    ...mapGetters({}),
+    calculation() {
+      return this.$store.getters["Calculations/byId"](this.$route.params.id);
+    },
+    calculation_member() {
+      const res = this.$store.getters["Calculation/all"];
+      return res.filter();
+    },
   },
   mounted() {
-    // console.log(this.params.id);
+    console.log(
+      this.$store.getters["Calculations/byId"](this.$route.params.id)
+    );
+    this.$store.dispatch("Calculations/byId", this.$route.params.id);
   },
 };
 </script>

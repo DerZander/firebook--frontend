@@ -65,7 +65,15 @@
         >
           h
         </router-link>
-        <button class="btn btn-sm btn btn-outline-secondary">
+        <button
+          class="btn btn-sm btn btn-outline-secondary"
+          @click="
+            $router.push({
+              name: 'CalculationsMemberList',
+              params: { id: calculation.id },
+            })
+          "
+        >
           <i class="fas fa-eye"></i>
           Mitglieder
         </button>

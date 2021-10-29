@@ -84,7 +84,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("Calculations/all");
-    console.log(this.calculations);
     this.calculations.forEach((c) => {
       this.membersTotalValue += c.members_total;
       this.membersTotalOpenValue += c.members_total_open;
