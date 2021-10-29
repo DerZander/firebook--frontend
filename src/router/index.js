@@ -3,6 +3,8 @@ import Router from "vue-router";
 
 import Home from "../views/Home.vue";
 import Login from "@/views/users/login";
+import Register from "@/views/users/register";
+import AdminTesting from "@/views/admin/Testing";
 
 import store from "@/store";
 import { Alert } from "@/models";
@@ -23,6 +25,18 @@ const base_routes = [
     name: "Login",
     component: Login,
     meta: { unauthenticated: true },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: { unauthenticated: true },
+  },
+  {
+    path: "/admin/testing",
+    name: "AdminTesting",
+    component: AdminTesting,
+    meta: { unauthenticated: true, allowedRoles: [3] },
   },
 ];
 
