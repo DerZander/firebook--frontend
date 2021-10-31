@@ -97,7 +97,7 @@
           <button
             class="btn btn-outline-success btn-sm"
             @click="userPay()"
-            onclick="style.display = 'none'"
+            :disabled="payBlocker"
           >
             Bezahlen
           </button>
@@ -128,6 +128,7 @@
 import DynamicCardComponent from "@/components/DynamicCardComponent";
 import { Alert } from "@/models";
 import { mapGetters } from "vuex";
+
 export default {
   name: "BudgetCard",
   components: { DynamicCardComponent },
