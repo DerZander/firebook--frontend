@@ -2,8 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Home from "../views/Home.vue";
-import Login from "@/views/users/login";
-import Register from "@/views/users/register";
+import Login from "@/views/users/auth/Auth";
+import Register from "@/views/users/auth/register";
 import AdminTesting from "@/views/admin/Testing";
 
 import store from "@/store";
