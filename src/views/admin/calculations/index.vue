@@ -2,7 +2,7 @@
   <div>
     <DynamicCardComponent header="Getränkeabrechnung">
       <template v-slot:headerextra>
-        <button class="btn btn-success btn-sm" @click="showModal = true" on>
+        <button class="btn btn-success btn-sm" @click="showModal = true">
           Hinzufügen
         </button>
         <Modal
@@ -78,12 +78,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      calculations: "Calculations/all",
-    }),
+    ...mapGetters({}),
   },
   mounted() {
-    this.$store.dispatch("Calculations/all");
     this.calculations.forEach((c) => {
       this.membersTotalValue += c.members_total;
       this.membersTotalOpenValue += c.members_total_open;
