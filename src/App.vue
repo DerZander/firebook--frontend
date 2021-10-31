@@ -1,10 +1,14 @@
 <template>
-  <div id="app">
-    <Navbar />
-    <div class="d-flex justify-content-center p-2">
-      <router-view class="w-75" />
+  <div class="grid-container" id="app">
+    <div class="Navbar" v-if="tokenData.userId">
+      <Navbar />
     </div>
-    <Alert />
+    <div class="Content">
+      <div class="d-flex justify-content-center">
+        <router-view class="w-75" />
+      </div>
+      <Alert />
+    </div>
   </div>
 </template>
 
@@ -12,10 +16,17 @@
 import Navbar from "@/components/Navbar/Navbar";
 import { doOnStartActions } from "@/store/utils";
 import Alert from "@/components/Alert/Alert";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
   components: { Alert, Navbar },
+  computed: {
+    ...mapGetters({
+      tokenData: "Login/data",
+      isLoggedIn: "Login/isLoggedIn",
+    }),
+  },
   created() {
     if (this.isLoggedIn) {
       doOnStartActions(this.$store);
@@ -32,11 +43,35 @@ export default {
 </script>
 
 <style lang="scss">
-@import "scss/variables.scss";
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "scss/main.scss";
 
 body {
-  background-color: $background-brown;
+  //background-color: $background-grey;
+  background-image: url("./assets/pictures/hydrant.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3em 1.8fr;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 1em;
+  grid-auto-flow: column;
+  grid-template-areas:
+    "Navbar"
+    "Content";
+}
+
+.Content {
+  grid-area: Content;
+}
+
+.Navbar {
+  grid-area: Navbar;
 }
 
 #app {

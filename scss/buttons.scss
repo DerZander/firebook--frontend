@@ -1,0 +1,37 @@
+.btn{
+  color: $font-color-white;
+}
+.btn-light{
+  color: $font-color-dark;
+}
+.btn:hover{
+  color: $font-color-dark;
+}
+
+.btn-outline-primary{
+  color: $primary;
+}
+.btn-outline-secondary{
+  color: $secondary;
+}
+.btn-outline-success{
+  color: $success;
+}
+.btn-outline-warning{
+  color: $warning;
+}
+.btn-outline-danger{
+  color: $danger;
+}
+.btn-outline-info{
+  color: $info;
+}
+.btn-outline-light{
+  color: $font-color-dark;
+}
+.btn-outline-dark{
+  color: $dark;
+}
+.btn-outline-primary:hover, .btn-outline-secondary:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .btn-outline-danger:hover, .btn-outline-info:hover, .btn-outline-dark:hover{
+  color: $font-color-white;
+}
