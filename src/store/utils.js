@@ -3,6 +3,7 @@ export const onStartActions = [
   "Calculations/all",
   "Members/all",
   "Vehicles/all",
+  "Users/all",
 ];
 
 export const doOnStartActions = (store) => {
