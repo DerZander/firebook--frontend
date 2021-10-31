@@ -12,7 +12,7 @@
     >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-          <div class="modal-header" v-if="header">
+          <div class="modal-header pt-2 pb-2 pe-2" v-if="header">
             <h5 class="modal-title">{{ header }}</h5>
             <button
               type="button"

@@ -1,0 +1,10 @@
+@import "scss/variables.scss";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "scss/buttons.scss";
+
+.list-group, .list-group-item{
+  background-color: transparent;
+  padding: 2px 0 2px 0;
+}
+
+

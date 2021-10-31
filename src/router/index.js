@@ -1,118 +1,88 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import Home from "../views/Home.vue";
-import EmergenciesIndex from "@/views/emergencies/index";
-import AdminEmergenciesEdit from "@/views/emergencies/edit";
-import AdminEmergenciesList from "@/views/emergencies/list";
-import Beverages from "@/views/beverages/index";
-import Login from "@/views/users/login";
-import AdminCalculationsIndex from "@/views/admin/calculations";
-import Vehicles from "@/views/vehicles/index";
+import Login from "@/views/users/auth/Auth";
+import Register from "@/views/users/auth/register";
+import AdminTesting from "@/views/admin/Testing";
 
 import store from "@/store";
+import { Alert } from "@/models";
+
+import UserRouter from "./modules/users";
+import EmergencyRouter from "./modules/emergencies";
+import CalculationRouter from "./modules/calculations";
+import BeverageRouter from "./modules/beverages";
+import VehicleRouter from "./modules/vehicles";
 
 Vue.use(Router);
 
+const base_routes = [
+  { path: "/", name: "Home", component: Home },
+
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: { unauthenticated: true },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: { unauthenticated: true },
+  },
+  {
+    path: "/admin/testing",
+    name: "AdminTesting",
+    component: AdminTesting,
+    meta: { unauthenticated: true, allowedRoles: [3] },
+  },
+];
+
+function setRouter() {
+  return base_routes.concat(
+    UserRouter,
+    EmergencyRouter,
+    CalculationRouter,
+    BeverageRouter,
+    VehicleRouter
+  );
+}
+
 const router = new Router({
   base: process.env.BASE_URL,
-  routes: [
-    { path: "/", name: "Home", component: Home },
-    {
-      path: "/emergencies",
-      name: "EmergenciesIndex",
-      component: EmergenciesIndex,
-      meta: { unauthenticated: true },
-    },
-    {
-      path: "/emergencies/:id",
-      name: "EmergenciesEdit",
-      component: AdminEmergenciesEdit,
-      meta: {
-        unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
-      },
-    },
-    {
-      path: "/emergencies-list",
-      name: "EmergenciesList",
-      component: AdminEmergenciesList,
-      meta: {
-        unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
-      },
-    },
-    {
-      path: "/beverages",
-      name: "Beverages",
-      component: Beverages,
-      meta: { unauthenticated: false },
-    },
-    {
-      path: "/admin/calculations",
-      name: "Calculations",
-      component: AdminCalculationsIndex,
-      meta: {
-        unauthenticated: false,
-        isBeverageAdmin: true,
-        isUnitAdmin: true,
-        isAdmin: true,
-      },
-    },
-    {
-      path: "/vehicles",
-      name: "Vehicles",
-      component: Vehicles,
-      meta: {
-        unauthenticated: false,
-        isBeverageAdmin: false,
-        isUnitAdmin: true,
-        isAdmin: true,
-      },
-    },
-    {
-      path: "/login",
-      name: "Login",
-      component: Login,
-      meta: { unauthenticated: true },
-    },
-  ],
+  routes: setRouter(),
 });
 
 router.beforeEach((to, from, next) => {
   const token = store.getters["Login/isLoggedIn"];
-  // const userData = store.getters["Login/data"];
+  const userData = store.getters["Login/data"];
 
   if (!token && !to.matched.some((record) => record.meta.unauthenticated)) {
-    console.log(to.path);
     next({ path: "/login", query: { q1: to.path } });
     return;
   }
-  if (!token && !to.matched.some((record) => record.meta.isBeverageAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
+  if (to.meta.allowedRoles) {
+    if (
+      !to.matched.some((record) =>
+        record.meta.allowedRoles.includes(parseInt(userData.role))
+      )
+    ) {
+      const alert = new Alert().setType(Alert.DANGER);
+      if (window.app) {
+        alert.setMessage(
+          "Sie besitzen nicht genug Rechte um diese Seite aufzurufen."
+        );
+        alert.setHeader("Falsche Berechtigung");
+      }
+      store.dispatch("Alert/add", alert);
+
+      next({ path: "/home" });
+
+      return;
+    }
   }
-  if (!token && !to.matched.some((record) => record.meta.isUnitAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
-  }
-  if (!token && !to.matched.some((record) => record.meta.isAdmin)) {
-    console.log(to.path);
-    next({ path: "/home", query: { q1: to.path } });
-    return;
-  }
-  // if (to.meta.allowedRoles) {
-  //   if (!to.matched.some(recrod => recrod.meta.allowedRoles.includes(parseInt(userData.role)))) {
-  //     // ALERT
-  //
-  //     return;
-  //   }
-  // }
 
   next();
 });

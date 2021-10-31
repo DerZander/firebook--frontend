@@ -1,7 +1,8 @@
 <template>
   <nav
     class="
-      navbar navbar-expand-lg navbar-light
+      navbar navbar-light navbar-expand-lg
+      fixed-top
       bg-light
       pb-0
       pt-0
@@ -14,7 +15,7 @@
         <img
           src="../../assets/icon.png"
           alt=""
-          width="30"
+          width="30px"
           class="d-inline-block"
         />
         Feuerwehrbuch
@@ -27,6 +28,7 @@
         aria-controls="navbarText"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        v-if="tokenData.userId"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -63,16 +65,16 @@
           </li>
           <li
             :class="[
-              { active: currenPath === 'Vehicles' },
+              { active: currenPath === 'UsersIndex' },
               'nav-item align-middle',
             ]"
           >
             <router-link
               class="nav-link align-middle"
-              :to="{ name: 'Vehicles' }"
+              :to="{ name: 'UsersIndex' }"
             >
-              <i class="fas fa-ambulance"></i>
-              <span class="align-middle"> Fahrzeuge</span>
+              <i class="fas fa-users"></i>
+              <span class="align-middle"> Kameraden</span>
             </router-link>
           </li>
           <li
@@ -85,8 +87,8 @@
               class="nav-link align-middle"
               :to="{ name: 'Vehicles' }"
             >
-              <i class="fas fa-beer"></i>
-              <span class="align-middle"> Getränke</span>
+              <i class="fas fa-ambulance"></i>
+              <span class="align-middle"> Fahrzeuge</span>
             </router-link>
           </li>
         </ul>
@@ -119,23 +121,22 @@
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
+                  <li><h6 class="dropdown-header">Meine Daten</h6></li>
                   <li>
-                    <a class="dropdown-item">Profil</a>
+                    <router-link
+                      class="dropdown-item"
+                      :to="{ name: 'UsersIndex' }"
+                      >Profil</router-link
+                    >
                   </li>
                   <li>
                     <router-link
                       class="dropdown-item"
-                      :to="{ name: 'Calculations' }"
+                      :to="{ name: 'CalculationsIndex' }"
                       >Getränkeabrechnungen</router-link
                     >
                   </li>
-                  <div
-                    v-if="
-                      tokenData.isBeverageAdmin ||
-                      tokenData.isUnitAdmin ||
-                      tokenData.isAdmin
-                    "
-                  >
+                  <div v-if="tokenData.role > 0">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Getränkewarte</h6></li>
                     <li>
@@ -148,7 +149,7 @@
                     <li>
                       <router-link
                         class="dropdown-item"
-                        :to="{ name: 'Calculations' }"
+                        :to="{ name: 'AdminCalculationsIndex' }"
                       >
                         Getränkeabrechnungen
                       </router-link>
@@ -162,21 +163,33 @@
                       </router-link>
                     </li>
                   </div>
-                  <div v-if="tokenData.isUnitAdmin || tokenData.isAdmin">
+                  <div v-if="tokenData.role > 2">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Einheitsführung</h6></li>
                     <li><a class="dropdown-item" href="#">Mitglieder</a></li>
                   </div>
-                  <div v-if="tokenData.isAdmin">
+                  <div v-if="tokenData.role === 3">
                     <li><hr class="dropdown-divider" /></li>
                     <li><h6 class="dropdown-header">Admin</h6></li>
                     <li><a class="dropdown-item" href="#">Admin</a></li>
+                    <li>
+                      <router-link
+                        class="dropdown-item"
+                        :to="{ name: 'AdminTesting' }"
+                      >
+                        Testing
+                      </router-link>
+                    </li>
                   </div>
                   <li><hr class="dropdown-divider" /></li>
                   <li>
                     <a class="dropdown-item" href="" @click="logout()"
                       >Logout</a
                     >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li v-if="tokenData.role === 3">
+                    <h6 class="dropdown-header">Version: {{ appversion }}</h6>
                   </li>
                 </ul>
               </li>
@@ -190,10 +203,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+// import { version } from "";
+import { version } from "@/../package.json";
 
 export default {
   name: "Navbar",
   components: {},
+  data() {
+    return {
+      appversion: version,
+    };
+  },
   computed: {
     ...mapGetters({
       tokenData: "Login/data",
