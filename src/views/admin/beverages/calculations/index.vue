@@ -62,7 +62,7 @@ export default {
   methods: {
     getYears() {
       let res = this.$store.getters["CalculationMembers/all"];
-      let years = [new Date().getFullYear(), 1997];
+      let years = [new Date().getFullYear()];
 
       res.forEach((item) => {
         if (!years.includes(item.year)) {
