@@ -20,7 +20,13 @@ export default class CalculationsMembers extends Model {
     paid_date: { type: Model.TYPES.Date, default: undefined },
     approved: { type: Model.TYPES.Boolean, default: false },
     created_at: { type: Model.TYPES.Date, default: undefined },
+    open_at: { type: Model.TYPES.Date, default: undefined },
+    closed_at: { type: Model.TYPES.Date, default: undefined },
   };
+
+  // member() {
+  //   return this.member_id;
+  // }
 
   constructor(obj) {
     super(CalculationsMembers.MAPPING, CalculationsMembers.ENDPOINT_PATH, obj);

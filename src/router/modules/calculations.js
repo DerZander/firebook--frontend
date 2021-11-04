@@ -1,4 +1,4 @@
-import AdminCalculationsIndex from "@/views/admin/calculations";
+import AdminCalculationsIndex from "@/views/admin/beverages/calculations";
 import CalculationsIndex from "@/views/calculations";
 import CalculationsMemberList from "@/views/admin/calculations/members/list";
 

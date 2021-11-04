@@ -27,7 +27,7 @@
     </CardComponent>
     <DynamicCardComponent header="DynamicCard">
       <template v-slot:headerextra>
-        <button class="btn btn-primary btn-sm" @click="showModal = true" on>
+        <button class="btn btn-primary btn-sm" @click="showModal = true">
           Modal
         </button>
         <Modal
@@ -90,7 +90,27 @@
         Neu?
       </label>
     </CardComponent>
-    <CardComponent header="KEINE AHNUNG"> </CardComponent>
+    <CardComponent header="KEINE AHNUNG">
+      <v-popover>
+        <button class="btn btn-outline-accent-purple">
+          <i class="fa fa-fw fa-trash"></i>
+        </button>
+        <template slot="popover">
+          <p>Sicher?</p>
+          <a v-close-popover>
+            <button class="btn btn-outline-accent-purple tooltip-target">
+              Ja
+            </button></a
+          >
+          <a v-close-popover>
+            <button class="btn btn-outline-accent-purple tooltip-target">
+              Nein
+            </button></a
+          >
+        </template>
+      </v-popover></CardComponent
+    >
+    <Icons />
   </div>
 </template>
 
@@ -100,9 +120,11 @@ import DynamicCardComponent from "@/components/DynamicCardComponent";
 import Modal from "@/components/Modal";
 import CardListComponent from "@/components/CardListComponent";
 import ListComponent from "@/components/ListComponent";
+import Icons from "@/views/admin/testing/componentes/Icons";
 export default {
   name: "Testing",
   components: {
+    Icons,
     ListComponent,
     CardListComponent,
     Modal,
