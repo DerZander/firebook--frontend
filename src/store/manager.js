@@ -136,6 +136,12 @@ export class ModelManager {
       this.state.all.push(new this.Clazz(item[item.length - 1]));
       this.state.nullResponse = false;
     },
+    addItems: (...item) => {
+      item.forEach((i) => {
+        this.state.all.push(new this.Clazz(i[i.length - 1]));
+      });
+      this.state.nullResponse = false;
+    },
     updateItem: (...item) => {
       const index = this.state.all.findIndex(
         (_item) => _item.id === item[item.length - 1].id

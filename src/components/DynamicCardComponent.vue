@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-2 shadow-sm">
+  <div :class="['card m-2 shadow-sm '] + extraClass">
     <div class="card-body pb-2">
       <img
         :src="picture.path"
@@ -51,6 +51,10 @@ export default {
       },
     },
     header: {
+      type: String,
+      default: "",
+    },
+    extraClass: {
       type: String,
       default: "",
     },

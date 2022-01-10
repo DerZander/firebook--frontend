@@ -4,7 +4,7 @@ import Router from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "@/views/users/auth/Auth";
 import Register from "@/views/users/auth/register";
-import AdminTesting from "@/views/admin/Testing";
+import AdminTesting from "@/views/admin/testing/Testing";
 
 import store from "@/store";
 import { Alert } from "@/models";

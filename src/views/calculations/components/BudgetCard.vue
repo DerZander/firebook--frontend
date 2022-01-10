@@ -1,10 +1,10 @@
 <template>
   <DynamicCardComponent
     :header="calc.getMonthYear()"
-    class="h-100 w-100"
     :centered-header="true"
+    extra-class="h-100"
   >
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush" v-if="getTotal() > 0">
       <li class="list-group-item">
         <h5 class="card-title">Auflistung</h5>
         <div
@@ -97,7 +97,7 @@
           <button
             class="btn btn-outline-success btn-sm"
             @click="userPay()"
-            onclick="style.display = 'none'"
+            :disabled="payBlocker"
           >
             Bezahlen
           </button>
@@ -117,6 +117,10 @@
         </div>
       </li>
     </ul>
+    <div v-else>
+      In diesem Monat hast du keine Striche auf der Getränkeliste und musst
+      somit auch nichts bezahlen.
+    </div>
   </DynamicCardComponent>
 </template>
 
@@ -124,6 +128,7 @@
 import DynamicCardComponent from "@/components/DynamicCardComponent";
 import { Alert } from "@/models";
 import { mapGetters } from "vuex";
+
 export default {
   name: "BudgetCard",
   components: { DynamicCardComponent },
@@ -142,7 +147,6 @@ export default {
   },
   methods: {
     getDate(dateVal) {
-      console.log(dateVal);
       const date = new Date(dateVal);
       return date.toLocaleDateString();
     },

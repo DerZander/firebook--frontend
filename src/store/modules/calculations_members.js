@@ -1,5 +1,6 @@
 import { ModelManager } from "../manager";
 import { CalculationsMembers } from "@/models/index";
+import api from "@/services/api";
 
 const manager = new ModelManager(CalculationsMembers);
 
@@ -16,6 +17,13 @@ const getters = {
 
 const actions = {
   ...manager.actions,
+  createCalculations({ commit }, { month, year, member_id }) {
+    api
+      .post(`calculation_member/create-all/`, { month, year, member_id })
+      .then((resp) => {
+        commit("addItem", resp.data);
+      });
+  },
 };
 
 const mutations = {
